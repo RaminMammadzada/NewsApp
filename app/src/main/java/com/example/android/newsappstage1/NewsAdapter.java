@@ -24,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,12 +39,6 @@ import java.util.List;
  * to be displayed to the user.
  */
 public class NewsAdapter extends ArrayAdapter<News> {
-
-    /**
-     * The part of the location string from the Guardian service that we use to determine
-     * whether or not there is a location offset present ("5km N of Cairo, Egypt").
-     */
-    private static final String LOCATION_SEPARATOR = " of ";
 
     /**
      * Constructs a new {@link NewsAdapter}.
@@ -73,20 +69,32 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         // Find the TextView with view ID sectionId
         TextView sectionView = (TextView) listItemView.findViewById(R.id.news_section);
-        // Display the magnitude of the current news in that TextView
+        // Display the general context of the current news in that TextView
         sectionView.setText(currentNews.getmNewsSection());
 
-        //
+        // Find the TextView with view ID news_title
         TextView titleView = (TextView) listItemView.findViewById( R.id.news_title );
+        // Display the title of the current news in that TextView
         titleView.setText( currentNews.getmNewsTitle() );
 
-        //
+        // Find the TextView with view ID date
         TextView dateView = (TextView) listItemView.findViewById( R.id.date );
+        // Display the date of the current news in that TextView
         dateView.setText( currentNews.getmDate() );
 
-        //
+        // Find the TextView with view ID time
         TextView timeView = (TextView) listItemView.findViewById( R.id.time );
+        // Display the time of the current news in that TextView
         timeView.setText( currentNews.getmTime() );
+
+        // Find the TextVIew with view ID author_text_view
+        TextView authorTV = (TextView) listItemView.findViewById( R.id.author_text_view );
+        authorTV.setText( R.string.author_text_view );
+
+        // Find the TextView with view ID author
+        TextView authorView = (TextView) listItemView.findViewById( R.id.author );
+        // Display the author of the current news in that TextView
+        authorView.setText( currentNews.getmAuthors() );
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

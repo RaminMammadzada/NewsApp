@@ -19,41 +19,76 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/news_background"
-    android:orientation="horizontal"
-    android:paddingEnd="16dp"
+    android:orientation="vertical"
     android:padding="16dp"
+    android:paddingEnd="16dp"
     android:paddingStart="16dp">
 
+
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:background="@drawable/news_background"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/news_section"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/news_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:textAllCaps="true"
+                android:textColor="@color/colorForSectionId"
+                android:textSize="12sp"
+                tools:text="@string/sectionId_placeholder" />
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                tools:text="@string/news_title_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="1"
-            android:textAllCaps="true"
-            android:textColor="@color/colorForSectionId"
-            android:textSize="12sp"
-            tools:text="@string/sectionId_placeholder" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/news_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            tools:text="@string/news_title_placeholder" />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                tools:text="Mar 6, 2010" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                tools:text="@string/time_placeholder" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -61,29 +96,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/author_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            tools:text="Mar 6, 2010" />
+            tools:text="@string/author_text_view" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            tools:text="@string/time_placeholder" />
+            tools:text="@string/author_placeholder" />
 
     </LinearLayout>
-
-
 </LinearLayout>

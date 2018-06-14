@@ -38,6 +38,9 @@ public class News {
     /** Time of the news */
     private String mTime;
 
+    /** Author of the news */
+    private String mAuthors;
+
 
     /**
      * Constructs a new {@link News} object.
@@ -46,11 +49,12 @@ public class News {
      * @param newsTitle is the title of the current news
      * @param newsWeblink is the hyper link to access to the current news online
      */
-    public News(String newsSection, String newsTitle, String newsWeblink, String date) {
+    public News(String newsSection, String newsTitle, String newsWeblink, String date, String authors) {
         mNewsSection = newsSection;
         mNewsTitle = newsTitle;
         mUrl = newsWeblink;
         mRawDate = date;
+        mAuthors = authors;
     }
 
 
@@ -77,7 +81,7 @@ public class News {
     }
 
     /**
-     * Returns the date of the current news
+     * Returns the date of the current news published
      */
     public String getmDate() {
 
@@ -85,10 +89,21 @@ public class News {
         return mDate;
     }
 
+    /**
+     * Returns the time of the current news published
+     */
     public String getmTime(){
         mTime = mRawDate.substring(11,19);
         return mTime;
     }
+
+    /**
+     * Returns the author of the current news
+     */
+    public String getmAuthors() {
+        return mAuthors;
+    }
+
 
 
 }

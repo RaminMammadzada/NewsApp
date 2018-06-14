@@ -38,7 +38,9 @@ import java.util.List;
  */
 public final class QueryUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     /**
@@ -54,18 +56,18 @@ public final class QueryUtils {
      */
     public static List<News> fetchNewsData(String requestUrl) {
         // Create URL object
-        URL url = createUrl(requestUrl);
+        URL url = createUrl( requestUrl );
 
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
         try {
-            jsonResponse = makeHttpRequest(url);
+            jsonResponse = makeHttpRequest( url );
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+            Log.e( LOG_TAG, "Problem making the HTTP request.", e );
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link News}s
-        List<News> allNews = extractFeatureFromJson(jsonResponse);
+        List<News> allNews = extractFeatureFromJson( jsonResponse );
 
         // Return the list of {@link News}s
         return allNews;
@@ -77,9 +79,9 @@ public final class QueryUtils {
     private static URL createUrl(String stringUrl) {
         URL url = null;
         try {
-            url = new URL(stringUrl);
+            url = new URL( stringUrl );
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Problem building the URL ", e);
+            Log.e( LOG_TAG, "Problem building the URL ", e );
         }
         return url;
     }
@@ -99,21 +101,21 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout( 10000 /* milliseconds */ );
+            urlConnection.setConnectTimeout( 15000 /* milliseconds */ );
+            urlConnection.setRequestMethod( "GET" );
             urlConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
+                jsonResponse = readFromStream( inputStream );
             } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                Log.e( LOG_TAG, "Error response code: " + urlConnection.getResponseCode() );
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the news JSON results.", e);
+            Log.e( LOG_TAG, "Problem retrieving the news JSON results.", e );
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -135,11 +137,11 @@ public final class QueryUtils {
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
+            InputStreamReader inputStreamReader = new InputStreamReader( inputStream, Charset.forName( "UTF-8" ) );
+            BufferedReader reader = new BufferedReader( inputStreamReader );
             String line = reader.readLine();
             while (line != null) {
-                output.append(line);
+                output.append( line );
                 line = reader.readLine();
             }
         }
@@ -152,7 +154,7 @@ public final class QueryUtils {
      */
     private static List<News> extractFeatureFromJson(String newsJSON) {
         // If the JSON string is empty or null, then return early.
-        if (TextUtils.isEmpty(newsJSON)) {
+        if (TextUtils.isEmpty( newsJSON )) {
             return null;
         }
 
@@ -165,7 +167,7 @@ public final class QueryUtils {
         try {
 
             // Create a JSONObject from the JSON response string
-            JSONObject baseJsonResponse = new JSONObject(newsJSON);
+            JSONObject baseJsonResponse = new JSONObject( newsJSON );
 
             // Extract the JSONArray associated with the key called "response",
             JSONObject resultsJsonObject = baseJsonResponse.getJSONObject( "response" );
@@ -173,16 +175,16 @@ public final class QueryUtils {
 
             // Extract the JsonArray associated with the key called "results"
             // which represents a list of features (or allNews).
-            JSONArray newsArray  = resultsJsonObject.getJSONArray( "results" );
+            JSONArray allNewsArray = resultsJsonObject.getJSONArray( "results" );
 
             // For each news in the newsArray , create an {@link News} object
-            for (int i = 0; i < newsArray .length(); i++) {
+            for (int i = 0; i < allNewsArray.length(); i++) {
 
                 // Get a single news at position i within the list of allNews
-                JSONObject currentNews = newsArray .getJSONObject(i);
+                JSONObject currentNews = allNewsArray.getJSONObject( i );
 
                 // For a given news, which extract the value for the key called "sectionId"
-                String newsSection = currentNews.getString("sectionId");
+                String newsSection = currentNews.getString( "sectionName" );
 
                 // For a given news we get the title with the key "webTitle"
                 String newsTitle = currentNews.getString( "webTitle" );
@@ -193,19 +195,41 @@ public final class QueryUtils {
                 // For a given news we get the date with the key "webPublicationDate"
                 String newsDate = currentNews.getString( "webPublicationDate" );
 
+                // Get the author of the news with the help og "response">"results">"tags">"webTitle"
+                JSONArray tagsArray = currentNews.getJSONArray( "tags" );
+
+                // For collection of authors in one string
+                String authors = "";
+
+                // For each tag in the tagsArray , create an {@link Tag} object
+                for (int j = 0; j < tagsArray.length(); j++) {
+
+                    // Get a single tag at position j within the list of tags
+                    JSONObject tag = tagsArray.getJSONObject( j );
+
+                    // For a given tag we get the current author with the key "webTitle"
+                    String author = tag.getString( "webTitle" );
+                    if (j != tagsArray.length() - 1) {
+                        authors = authors + author + ", ";
+                    } else {
+                        authors = authors + author ;
+                    }
+
+                }
+
                 // Create a new {@link News} object with the magnitude, location, time,
                 // and url from the JSON response.
-                News news = new News(newsSection, newsTitle, newsWeblink, newsDate);
+                News news = new News( newsSection, newsTitle, newsWeblink, newsDate, authors );
 
                 // Add the new {@link News} to the list of allNews.
-                allNews.add(news);
+                allNews.add( news );
             }
 
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the news JSON results", e);
+            Log.e( "QueryUtils", "Problem parsing the news JSON results", e );
         }
 
         // Return the list of allNews

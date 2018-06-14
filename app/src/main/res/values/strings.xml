@@ -49,9 +49,9 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
-    <string name="author_text_view">Author:</string>
+    <string name="author_text_view">Author: </string>
     <string name="author_placeholder">Michael John</string>
     <string name="time_placeholder">3:00 PM</string>
     <string name="sectionId_placeholder">Environemnt</string>
-    <string name="news_title_placeholder">Long placeholder for news title that should wrap to more than 2 lines of text</string>
+    <string name="news_title_placeholder">Long placeholder for news title that should wrap to more than 3 lines of text</string>
 </resources>

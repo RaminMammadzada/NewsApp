@@ -37,13 +37,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity
-        implements LoaderCallbacks<List<News>> {
-
-    private static final String LOG_TAG = NewsActivity.class.getName();
+public class NewsActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
     /** URL for news data from the USGS dataset */
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/world/france?api-key=53af8378-81a3-4686-9499-b9cd586e5209";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/world/france?&show-tags=contributor&api-key=53af8378-81a3-4686-9499-b9cd586e5209";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.
