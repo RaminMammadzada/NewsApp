@@ -212,7 +212,7 @@ public final class QueryUtils {
                     if (j != tagsArray.length() - 1) {
                         authors = authors + author + ", ";
                     } else {
-                        authors = authors + author ;
+                        authors = authors + author;
                     }
 
                 }

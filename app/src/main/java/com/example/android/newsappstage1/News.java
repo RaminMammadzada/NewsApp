@@ -20,25 +20,39 @@ package com.example.android.newsappstage1;
  */
 public class News {
 
-    /** General context of the news */
+    /**
+     * General context of the news
+     */
     private String mNewsSection;
 
-    /** Title of the news */
+    /**
+     * Title of the news
+     */
     private String mNewsTitle;
 
-    /** Website URL of the news on The Guardian */
+    /**
+     * Website URL of the news on The Guardian
+     */
     private String mUrl;
 
-    /** Raw Date of the news */
+    /**
+     * Raw Date of the news
+     */
     private String mRawDate;
 
-    /** Date of the news */
+    /**
+     * Date of the news
+     */
     private String mDate;
 
-    /** Time of the news */
+    /**
+     * Time of the news
+     */
     private String mTime;
 
-    /** Author of the news */
+    /**
+     * Author of the news
+     */
     private String mAuthors;
 
 
@@ -46,7 +60,7 @@ public class News {
      * Constructs a new {@link News} object.
      *
      * @param newsSection is the general context of the news
-     * @param newsTitle is the title of the current news
+     * @param newsTitle   is the title of the current news
      * @param newsWeblink is the hyper link to access to the current news online
      */
     public News(String newsSection, String newsTitle, String newsWeblink, String date, String authors) {
@@ -85,15 +99,15 @@ public class News {
      */
     public String getmDate() {
 
-        mDate = mRawDate.substring(0,10);
+        mDate = mRawDate.substring( 0, 10 );
         return mDate;
     }
 
     /**
      * Returns the time of the current news published
      */
-    public String getmTime(){
-        mTime = mRawDate.substring(11,19);
+    public String getmTime() {
+        mTime = mRawDate.substring( 11, 19 );
         return mTime;
     }
 
@@ -103,7 +117,6 @@ public class News {
     public String getmAuthors() {
         return mAuthors;
     }
-
 
 
 }

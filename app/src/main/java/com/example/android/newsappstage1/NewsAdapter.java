@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * An {@link NewsAdapter} knows how to create a list item layout for each news
  * in the data source (a list of {@link News} objects).
- *
+ * <p>
  * These list item layouts will be provided to an adapter view like ListView
  * to be displayed to the user.
  */
@@ -47,7 +47,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
      * @param allNews is the list of allNews, which is the data source of the adapter
      */
     public NewsAdapter(Context context, List<News> allNews) {
-        super(context, 0, allNews);
+        super( context, 0, allNews );
     }
 
     /**
@@ -60,17 +60,17 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // otherwise, if convertView is null, then inflate a new list item layout.
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.news_list_item, parent, false);
+            listItemView = LayoutInflater.from( getContext() ).inflate(
+                    R.layout.news_list_item, parent, false );
         }
 
         // Find the news at the given position in the list of allNews
-        News currentNews = getItem(position);
+        News currentNews = getItem( position );
 
         // Find the TextView with view ID sectionId
-        TextView sectionView = (TextView) listItemView.findViewById(R.id.news_section);
+        TextView sectionView = (TextView) listItemView.findViewById( R.id.news_section );
         // Display the general context of the current news in that TextView
-        sectionView.setText(currentNews.getmNewsSection());
+        sectionView.setText( currentNews.getmNewsSection() );
 
         // Find the TextView with view ID news_title
         TextView titleView = (TextView) listItemView.findViewById( R.id.news_title );
